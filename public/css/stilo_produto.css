@@ -1,0 +1,9 @@
+h1 {
+    text-transform: uppercase; /* para por em caixa alta*/
+    font-weight: bold;/*texto em negrito*/
+    font-size: 16pt;
+    /*background: rgba(53, 53, 110, 0.4);*/
+    text-align: center;
+   
+
+}
