@@ -10,23 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/painel/produto/test', 'Painel\ProdutoControle@test');
+//Route::get('/painel/usuario/test', 'Painel\UsuarioControle@test');
 Route::resource('/painel/produto', 'Painel\ProdutoControle');
 
-Route::get('/adiciona_p', 'Painel\ProdutoControle@store');
+//Route::get('/adiciona/p', 'Painel\ProdutoControle@store');
 
 
 Route::resource('/painel/usuario', 'Painel\UsuarioControle');
 
-Route::get('/adiciona_u', 'Painel\UsuarioControle@store');
+//Route::post('/adiciona_usuario', 'Painel\UsuarioControle@store');
 
 
 
 Route::resource('/painel/vendas', 'Painel\VendasControle');
-Route::get('/adiciona_v', 'Painel\VendasControle@store');
+//Route::get('/adiciona/v', 'Painel\VendasControle@store');
 
 
-
+ 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/teste_cep', function(){
+	return view('painel/js/teste_cep');
 });

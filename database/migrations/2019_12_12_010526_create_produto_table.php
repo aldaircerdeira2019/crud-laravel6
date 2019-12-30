@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CrateProdutoTable extends Migration
+class CreateProdutoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CrateProdutoTable extends Migration
      */
     public function up()
     {
-         Schema::create('produto', function (Blueprint $table) {
-            $table->bigIncrements('id_produto');
+        Schema::create('produto', function (Blueprint $table) {
+           $table->bigIncrements('id');
             $table->string('nome',40);
-            $table->doubleval('valor_produto')
+            $table->double('preco');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CrateProdutoTable extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('produto');
+        Schema::dropIfExists('produto');
     }
 }

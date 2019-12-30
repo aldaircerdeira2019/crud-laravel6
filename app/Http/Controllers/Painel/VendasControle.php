@@ -5,20 +5,27 @@ namespace App\Http\Controllers\Painel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\VendasModel;
+use App\Http\Requests\VendasFormRequest;
 
 
 
 class VendasControle extends Controller
 {
+    private $vendas;
+    private $pagi=5;
+    public function __construct(VendasModel $vendas)
+    {
+        $this->vendas = $vendas;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(VendasModel $vendas)
+    public function index()
     {
         $title ='Listagem dos Vendedores';
-       $r_vendas= $vendas-> all();
+       $r_vendas= $this->vendas-> paginate($this->pagi);
         return view('painel.vendas.index',compact('r_vendas','title'));
     }    
 
@@ -39,7 +46,7 @@ class VendasControle extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,VendasModel $vendas)
+    public function store(VendasFormRequest $request)
     {
 
        //dd ($request->all()); //capturar todos os dados
@@ -49,7 +56,7 @@ class VendasControle extends Controller
         $dadosform = $request->all();//armazena os dados que vem do formulario
 
 
-        $insert =$vendas->insert($dadosform);
+        $insert =$this->vendas->create($dadosform);
         if($insert)
             return redirect()->route('vendas.index');
         else
@@ -75,7 +82,10 @@ class VendasControle extends Controller
      */
     public function edit($id)
     {
-        //
+        $vendas=$this->vendas->find($id);
+        $title = "editando a venda : {$vendas->id}";
+        return view('painel.vendas.create', compact('title','vendas'));
+       // return"editando a venda: $id";
     }
 
     /**
@@ -85,9 +95,18 @@ class VendasControle extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VendasFormRequest $request, $id)
     {
-        //
+        $dadosform = $request->all();
+        $vendas= $this->vendas->find($id);
+        $update=$vendas->update($dadosform);
+        if ($update) {
+            return redirect()->route('vendas.index');
+        } else {
+            return redirect()->route('vendas.edit',$id)->with(['errors'=>'erro ao atualizar']);
+        }
+
+       // return"editando item : $id";
     }
 
     /**
@@ -101,9 +120,6 @@ class VendasControle extends Controller
         //
     }
 
-     public function test(VendasModel $vendas)
-    {
-               
-    }
+    
 }
 

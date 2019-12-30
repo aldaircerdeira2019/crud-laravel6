@@ -5,18 +5,25 @@ namespace App\Http\Controllers\Painel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\ProdutoModel;
+use App\Http\Requests\ProdutoFormRequest;
 
 class ProdutoControle extends Controller
 {
+    private $produto;
+    private $pagi = 5;
+    public function __construct(ProdutoModel $produto)
+    {
+        $this->produto = $produto;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ProdutoModel $produto)
+    public function index()
     {
         $title ='Listagem dos Produtos';
-       $produtos= $produto-> all();
+       $produtos= $this->produto-> paginate($this->pagi);
         return view('painel.produto.index',compact('produtos','title'));
     }    
 
@@ -37,7 +44,7 @@ class ProdutoControle extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,ProdutoModel $produto)
+    public function store(ProdutoFormRequest $request)
     {
 
        //dd ($request->all()); //capturar todos os dados
@@ -47,7 +54,7 @@ class ProdutoControle extends Controller
         $dadosform = $request->all();//armazena os dados que vem do formulario
 
 
-        $insert =$produto->insert($dadosform);
+        $insert =$this->produto->create($dadosform);
         if($insert)
             return redirect()->route('produto.index');
         else
@@ -62,7 +69,10 @@ class ProdutoControle extends Controller
      */
     public function show($id)
     {
-        //
+         $produtos= $this->produto->find($id);
+         $title="produto: {$produtos->nome}";
+         return view('painel.produto.show',compact('produtos','title'));
+        //return"vizualizar : {$id}";
     }
 
     /**
@@ -72,8 +82,13 @@ class ProdutoControle extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {       /* metodo que recupera um item pelo o id*/
+            $produtos= $this->produto->find($id);
+
+            $title="Editar Produto : {$produtos->nome}";
+            return view('painel.produto.create',compact('title','produtos'));
+          
+        //return "editasr table {$id_produto}";
     }
 
     /**
@@ -83,9 +98,19 @@ class ProdutoControle extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProdutoFormRequest $request, $id)
     {
-        //
+        $dadosform = $request->all();
+        $produto= $this->produto->find($id);
+        $update=$produto->update($dadosform);
+        if ($update) {
+            return redirect()->route('produto.index');
+        } else {
+            return redirect()->route('produto.edit',$id)->with(['errors'=>'erro ao atualizar']);
+        }
+        
+
+        //return"editando o {$id}";
     }
 
     /**
@@ -96,12 +121,16 @@ class ProdutoControle extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $produto= $this->produto->find($id);
+        $delete=$produto->delete();
+        if ($delete) {
+            return redirect()->route('produto.index');
+        } else {
+            return redirect()->route('produto.shoe',$id)->with(['errors'=>'erro ao deletar']);
+        }
+        
+       // return'ok';
     }
 
-     public function test(ProdutoModel $produto)
-    {
-               $produtos= $produto-> all();
-        return'test';
-    }
 }

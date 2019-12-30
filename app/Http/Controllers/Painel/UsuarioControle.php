@@ -5,19 +5,27 @@ namespace App\Http\Controllers\Painel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\UsuarioModel;
+use App\Http\Requests\UsuarioFormRequest;
 
 
 class UsuarioControle extends Controller
 {
+    private $usuario;
+    private $pagi = 5;
+    public function __construct(UsuarioModel $usuario)/*metodo construtor que servera p todos os metodos*/
+    {
+        $this->usuario = $usuario;
+
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UsuarioModel $usuario)
+    public function index()
     {
         $title ='Listagem dos Vendedores';
-       $usuarios= $usuario-> all();
+       $usuarios= $this->usuario-> paginate($this->pagi);
         return view('painel.usuario.index',compact('usuarios','title'));
     }    
 
@@ -38,7 +46,7 @@ class UsuarioControle extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,usuarioModel $usuario)
+    public function store(UsuarioFormRequest $request)
     {
 
        //dd ($request->all()); //capturar todos os dados
@@ -47,8 +55,29 @@ class UsuarioControle extends Controller
 
         $dadosform = $request->all();//armazena os dados que vem do formulario
 
+        /* VALIDAÇÃO DOS DADOS */
+       // $this->validate($request, $this->usuario->regras);
+       /* $mensagens = [
+            'nome.required'     =>'O campo nome é de preechimento obrigatorio',
+            'nome.min'          =>'O nome tem que ter no mínimo 3 caracteres',
+            'nome.max'          =>'O nome ultrapassa o limite de 60 caracteres',
+            'senha.required'    =>'O campo senha é de preechimento obrigario',
+            'senha.min'         =>'A senha deve ter no mínimo 8 caracteres',
+            'email.required'    =>'O campo email é de preechimento obrigatorio',
+            'email.max'         =>'O email ultrapassa o limite de 255 caracteres ',
+            'cep.required'      =>'O campo cep é de preechimento obrigatorio',
+            'rua.required'      =>'O campo rua é de preechimento obrigatorio',
+            'rua.max'           =>'O nome da rua ultrapassa o limite de 120 caracteres'
+        ] ;
+        $validate = validator($dadosform,$this->usuario->regras, $mensagens); 
+        if($validate->fails()){
+            return redirect()
+            ->route('usuario.create')
+            ->withErrors($validate)
+           ->withInput();/* para permanece os dados no formulario*
+        }*/
 
-        $insert =$usuario->insert($dadosform);
+        $insert =$this->usuario->create($dadosform);
         if($insert)
             return redirect()->route('usuario.index');
         else
@@ -62,7 +91,11 @@ class UsuarioControle extends Controller
      */
     public function show($id)
     {
-        //
+        $usuarios= $this->usuario->find($id);
+        $title="Vendedor: {$usuarios->nome}";
+        return view('painel.usuario.show',compact('usuarios','title'));
+
+       // return"visualizar para o id : $id";
     }
 
     /**
@@ -73,7 +106,11 @@ class UsuarioControle extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuarios= $this->usuario->find($id);
+
+        $title="Editar Produto : {$usuarios->nome}";
+        return view('painel.usuario.create',compact('title','usuarios'));
+        //return"retorno id : $id";
     }
 
     /**
@@ -83,9 +120,19 @@ class UsuarioControle extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsuarioFormRequest $request, $id)
     {
-        //
+
+        $dadosform = $request->all();
+        $usuario= $this->usuario->find($id);
+        $update=$usuario->update($dadosform);
+        if ($update) {
+            return redirect()->route('usuario.index');
+        } else {
+            return redirect()->route('usuario.edit',$id)->with(['errors'=>'erro ao atualizar']);
+        }
+
+        //return"updade do id: $id";
     }
 
     /**
@@ -96,12 +143,29 @@ class UsuarioControle extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario= $this->usuario->find($id);
+        $delete=$usuario->delete();
+        if ($delete) {
+            return redirect()->route('usuario.index');
+        } else {
+            return redirect()->route('usuario.show',$id)->with(['errors'=>'erro ao deletar']);
+        }
+       // return"apagando o perfil: $id";
     }
 
-     public function test(UsuarioModel $usuario)
+     public function test()
     {
-               
+                $insert =  $this->usuario->create([
+                        'nome' => 'maria de aparecidaxc',
+                        'senha'=> '12548',
+                        'email'=> 'hmaa@hotmail.com',
+                        'cep'  => '69086-210',
+                        'rua'  => 'rua joão batista'
+                  ]);
+                if($insert)
+                    return'cadastrado';
+                else
+                    return'não cadastrado';
     }
 }
 

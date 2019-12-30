@@ -3,7 +3,68 @@ h1 {
     font-weight: bold;/*texto em negrito*/
     font-size: 16pt;
     /*background: rgba(53, 53, 110, 0.4);*/
-    text-align: center;
-   
+    text-align: center; 
+}
+.content {
+    width: 1200px;/*para delimitar a largura em */
+    background-color:white;
+    margin: 20px auto 50px auto ; /* para a interface fk centrealizada valore  top , direita, baixo e esquerda em sentido horario*/
+    box-shadow: 0px 0px 20px #89918c; /* sobreamento valores deslocamento latera, vertica espalhamento e cor*/
+    padding: 60px 30px 30px 30px;/* a margem interna do obt valores top sentido horario ate esquerda*/
 
+}
+.title{
+    font-size: 60pt;
+    text-align: center;
+    padding: 20px;
+}
+
+header#cabecalho{
+    height: 300px;/* tamanho da altura do cabecalho*/
+    border: 1px rgb(41, 28, 28) solid; /*borda VALORES  tamanho cor e tipo*/
+}
+/* fortação para o menu */
+nav#menu{
+	display: block;/*para fazer o menu ser exibido como um bloco*/
+   margin: 100px 300px auto 300px;
+}
+nav#menu ul{
+	list-style: none;/*para ocultar o marcador*/
+}
+nav#menu li{
+	display: inline-block;/*para por o menu lado a lado*/
+	background: rgba(12, 0, 0, 0.8); /*cor no fundo do texcto do menu*/
+	padding: 7px;/*para aumentar o espaço da cor de fundo do texto */
+	transition: background-color 1s; /*para ter a trasição de cor qndo o mouse pasar*/
+}
+
+nav#menu li:hover{/* horver - ao passar o mouse por cima do objt*/
+    background-color: rgb(0, 0, 0);/* cor de fundo quando o mouse passar por cima*/
+  }
+nav#menu h1{
+	display: none; /*para esconder o titulo menu principal*/
+}
+nav#menu a{/* para o menu que tem link ativo*/
+	color: white;
+	text-decoration: none;/* para tirar o sublinhado da palavra*/
+
+}
+
+section#corpo{
+    /*display: block;*/
+	padding: 20px;
+	margin-top: 50px;
+	margin-bottom: 50PX;
+	border: 1px rgb(41, 28, 28) solid; 
+
+}
+
+.links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
 }

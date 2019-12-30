@@ -2,16 +2,36 @@
 
 @section('conteudo')
 <h1>Gestão das vendas</h1>
-<form class="form" method="get" action="{{ $action ?? url('adiciona_v') }}">
+	@if(isset($errors)&&count($errors)>0)
+		<div class='alert alert-danger'>
+			@foreach($errors->all() as $erros)
+			<p1> {{$erros}}</p1><br>
+			@endforeach
+		</div>
+	@endif 
 
+	@if(isset($vendas))
+				<form class="form" method="post" action="{{route('vendas.update',$vendas->id)}}">
+				{!!method_field('put')!!}	
+			@else
+				<form class="form" method="post" action="{{route('vendas.store')}}">
+			@endif
+	@csrf
 	<div class="form-group">
-	<input type="text" name="produto_vendido" placeholder="codigo do produto"></div>
+	<input type="text" name="produto_vendido" value="{{$vendas->produto_vendido ?? old('produto_vendido')}}" placeholder="codigo do produto"></div>
 	<div class="form-group">
-	<input type="number" name="quantidade" ></div>
+	<input type="number" name="quantidade" value="{{$vendas->quantidade ?? old('quantidade')}}"></div>
 	<div class="form-group">
-	<input type="text" name="vendedor" placeholder="codigo do vendedor"></div>
+	<input type="text" name="vendedor" value="{{$vendas->vendedor ?? old('vendedor')}}" placeholder="codigo do vendedor"></div>
 	<div class="form-group">
-	<button type="submit" class="btn btn-primary">Cadastrar</button></div>
+	<button type="submit" class="btn btn-primary">
+		@if(!isset($vendas))
+		Cadastrar
+		@else
+		Atualizar
+		@endif
+		</button>
+
 </form>
 
 
