@@ -17,28 +17,26 @@ Fazer o download e iniciar a instalação
 
 Instala o composer
 ```bash
-$ composer install
+- composer install
 ```
 
 Instala o npm
 ```bash
-$ npm install
+- npm install
 ```
 
 Copia arquivo .env
 ```bash
-$ cp .env.example .env
+- cp .env.example .env
 ```
 
 Gera chave
 ```bash
-$ php artisan key:generate
+- php artisan key:generate
 ```
-
-Cria banco de dados vazio (MySQL)
+Banco de dados
 ```bash
-$ mysql -uroot -proot
-$ create database blog;
+- cria um banco de dados vazio 
 ```
 
 Configurar banco de dados no arquivo .env
@@ -46,22 +44,17 @@ Configurar banco de dados no arquivo .env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=blog
-DB_USERNAME=root
-DB_PASSWORD=root
+DB_DATABASE= 
+DB_USERNAME=
+DB_PASSWORD=
 ```
 
 Migra tabelas para o banco de dados
 ```bash
-$ php artisan migrate
+- php artisan migrate
 ```
 
-Cria link simbólico
+Iniciar o servidor local
 ```bash
-$ php artisan storage:link
-```
-
-Roda servidor local na porta 8000
-```bash
-$ php artisan serve
+- php artisan serve
 ```
