@@ -20,11 +20,6 @@ Instala o composer
 - composer install
 ```
 
-Instala o npm
-```bash
-- npm install
-```
-
 Copia arquivo .env
 ```bash
 - cp .env.example .env
