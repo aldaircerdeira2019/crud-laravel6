@@ -11,9 +11,14 @@
 <p><b>Data de Criação: </b>{{$produtos->created_at}}</p>
 <p><b>Ultima Atualização: </b>{{$produtos->updated_at}}</p>
 
-<form class="form" method="post" action="{{route('produto.destroy',$produtos->id)}}">
+<!-- parte comentada caso queira usar a função para deletar-->
+<!--form class="form" method="post" action="{{route('produto.destroy',$produtos->id)}}">
 	{!!method_field('delete')!!}	
 	@csrf
 	<button type="submit" class="alert alert-danger">{{"Apagar o Produto $produtos->nome"}}</button>
-</form>
+</form-->
+
+	<a class="btn btn-primary" href="{{route('produto.index')}}">
+		<span class="glyphicon glyphicon-chevron-left"></span>
+	</a>
 @endsection

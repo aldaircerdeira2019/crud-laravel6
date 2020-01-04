@@ -13,7 +13,7 @@
 		<th>Preço</th>
 		<th>Data Criação</th>
 		<th>Data Modificação</th>
-		<th>Ação</th>
+		<th width="102 px">Ação</th>
 
 
 	</tr>
@@ -33,10 +33,6 @@
 
 			<a class="btn btn-success" href="{{route('produto.show',$produto->id)}}" role="button">
 			<span class="glyphicon glyphicon-eye-open"></span>
-			</a>
-
-			<a class="btn btn-danger" href="{{route('produto.show',$produto->id)}}" role="button">
-			<span class="glyphicon glyphicon-trash"></span>
 			</a>
 		</td>
 

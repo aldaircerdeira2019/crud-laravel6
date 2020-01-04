@@ -18,6 +18,10 @@ h1 {
     text-align: center;
     padding: 20px;
 }
+.td_del{
+    display:flex;
+   
+}
 
 header#cabecalho{
     height: 300px;/* tamanho da altura do cabecalho*/

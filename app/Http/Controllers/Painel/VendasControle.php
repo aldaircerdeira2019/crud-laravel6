@@ -71,7 +71,10 @@ class VendasControle extends Controller
      */
     public function show($id)
     {
-        //
+        $vendas= $this->vendas->find($id);
+        $title="{$vendas->id} da Vendedor";
+        return view('painel.vendas.show',compact('vendas','title'));
+
     }
 
     /**
@@ -117,7 +120,13 @@ class VendasControle extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vendas= $this->vendas->find($id);
+        $delete=$vendas->delete();
+        if ($delete) {
+            return redirect()->route('vendas.index');
+        } else {
+            return redirect()->route('vendas.index')->with(['errors'=>'erro ao deletar']);
+        }
     }
 
     
