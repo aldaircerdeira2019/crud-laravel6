@@ -155,7 +155,7 @@ class UsuarioControle extends Controller
 
      public function test()
     {
-                $insert =  $this->usuario->create([
+        $insert =  $this->usuario->create([
                         'nome' => 'maria de aparecidaxc',
                         'senha'=> '12548',
                         'email'=> 'hmaa@hotmail.com',

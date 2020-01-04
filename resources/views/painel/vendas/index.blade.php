@@ -34,7 +34,7 @@
 				</a>
 
 				<form class="form" method="post" action="{{route('vendas.destroy',$venda->id)}}" >
-					{!!method_field('delete')!!}	
+					@method('delete')	
 					@csrf
 					<button type="submit" class="btn btn-danger" >
 						<span class="glyphicon glyphicon-trash"></span>

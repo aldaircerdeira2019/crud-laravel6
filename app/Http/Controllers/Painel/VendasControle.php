@@ -48,19 +48,29 @@ class VendasControle extends Controller
      */
     public function store(VendasFormRequest $request)
     {
+        try {
+            //code...
+            //dd ($request->all()); //capturar todos os dados
+            // dd($request->only(['nome','preco'])); capturar selecionando
+            // dd($request->except(['nome'])); exeto o campo tal
 
-       //dd ($request->all()); //capturar todos os dados
-       // dd($request->only(['nome','preco'])); capturar selecionando
-       // dd($request->except(['nome'])); exeto o campo tal
-
-        $dadosform = $request->all();//armazena os dados que vem do formulario
-
-
-        $insert =$this->vendas->create($dadosform);
-        if($insert)
+            $dadosform = $request->all();//armazena os dados que vem do formulario
+            $insert =$this->vendas->create($dadosform);
+            flash('Criado com sucesso!')->success();
             return redirect()->route('vendas.index');
-        else
+            
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG'))
+            {
+                /* retorna o erro*/
+                flash($e->getMessage())->warning();
+                return redirect()->route('vendas.create');
+            }
+            /* retorna uma mensagem de erro*/
+            flash('erro ao cadastrar! verifique os dados')->warning();
             return redirect()->route('vendas.create');
+        }
+       
     }
 
     /**
@@ -72,7 +82,7 @@ class VendasControle extends Controller
     public function show($id)
     {
         $vendas= $this->vendas->find($id);
-        $title="{$vendas->id} da Vendedor";
+        $title="id da venda {$vendas->id}";
         return view('painel.vendas.show',compact('vendas','title'));
 
     }
@@ -100,13 +110,24 @@ class VendasControle extends Controller
      */
     public function update(VendasFormRequest $request, $id)
     {
-        $dadosform = $request->all();
-        $vendas= $this->vendas->find($id);
-        $update=$vendas->update($dadosform);
-        if ($update) {
+        try {
+            //code...
+            $dadosform = $request->all();
+            $vendas= $this->vendas->find($id);
+            $update=$vendas->update($dadosform);
+            flash('atualizado com sucesso!')->success();
             return redirect()->route('vendas.index');
-        } else {
-            return redirect()->route('vendas.edit',$id)->with(['errors'=>'erro ao atualizar']);
+            
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG'))
+            {
+                /* retorna o erro*/
+                flash($e->getMessage())->warning();
+                return redirect()->route('vendas.create');
+            }
+            /* retorna uma mensagem de erro*/
+            flash('erro ao atualizar')->warning();
+            return redirect()->route('vendas.create');
         }
 
        // return"editando item : $id";
@@ -119,14 +140,25 @@ class VendasControle extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $vendas= $this->vendas->find($id);
-        $delete=$vendas->delete();
-        if ($delete) {
+    {   
+        try {
+            //code...
+            $vendas= $this->vendas->find($id);
+            $delete=$vendas->delete();
+            flash('deletado com sucesso!')->success();
             return redirect()->route('vendas.index');
-        } else {
-            return redirect()->route('vendas.index')->with(['errors'=>'erro ao deletar']);
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG'))
+            {
+                /* retorna o erro*/
+                flash($e->getMessage())->warning();
+                return redirect()->route('vendas.index');
+            }
+            /* retorna uma mensagem de erro*/
+            flash('erro ao delatar')->warning();
+            return redirect()->route('vendas.index');
         }
+      
     }
 
     

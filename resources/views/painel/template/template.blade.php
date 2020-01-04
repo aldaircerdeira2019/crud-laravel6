@@ -30,6 +30,7 @@
                 <br><br>
                 
                 <section id="corpo">
+                    @include('flash::message')
 					@yield('conteudo')
                 </section>
             </div>

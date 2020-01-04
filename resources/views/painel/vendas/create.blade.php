@@ -12,7 +12,7 @@
 
 	@if(isset($vendas))
 		<form class="form" method="post" action="{{route('vendas.update',$vendas->id)}}">
-		{!!method_field('put')!!}	
+		@method('PUT')
 	@else
 		<form class="form" method="post" action="{{route('vendas.store')}}">
 	@endif
