@@ -53,7 +53,7 @@ class UsuarioControle extends Controller
        // dd($request->only(['nome','preco'])); capturar selecionando
        // dd($request->except(['nome'])); exeto o campo tal
 
-        $dadosform = $request->all();//armazena os dados que vem do formulario
+       // $dadosform = $request->all();//armazena os dados que vem do formulario
 
         /* VALIDAÇÃO DOS DADOS */
        // $this->validate($request, $this->usuario->regras);
@@ -77,11 +77,19 @@ class UsuarioControle extends Controller
            ->withInput();/* para permanece os dados no formulario*
         }*/
 
-        $insert =$this->usuario->create($dadosform);
-        if($insert)
-            return redirect()->route('usuario.index');
-        else
-            return redirect()->route('usuario.create');
+       
+        try {
+            $dadosform = $request->all();
+            $insert =$this->usuario->create($dadosform);
+            flash('cadastrado com sucessor!')->success();
+            return redirect()->route('usuario.index');            
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG')){
+                flash($e->getMessage())->warning();
+                return redirect()->route('usuario.create');
+            }
+            flash('erro ao cadastrar! verifique os dados')->warning();
+        }
     }
     /**
      * Display the specified resource.
@@ -122,15 +130,22 @@ class UsuarioControle extends Controller
      */
     public function update(UsuarioFormRequest $request, $id)
     {
-
-        $dadosform = $request->all();
-        $usuario= $this->usuario->find($id);
-        $update=$usuario->update($dadosform);
-        if ($update) {
+        try {
+            $dadosform = $request->all();
+            $usuario= $this->usuario->find($id);
+            $update=$usuario->update($dadosform);
+            flash('atualizado com sucesso!')->success();
             return redirect()->route('usuario.index');
-        } else {
-            return redirect()->route('usuario.edit',$id)->with(['errors'=>'erro ao atualizar']);
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG')){
+                flash($e->getMessage())->warning();
+                return redirect()->route('usuario.create');
+            }
+            flash('erro ao atualizar')->warning();
+            return redirect()->route('usuario.create');
         }
+
+        
 
         //return"updade do id: $id";
     }
@@ -145,12 +160,7 @@ class UsuarioControle extends Controller
     {
         $usuario= $this->usuario->find($id);
         $delete=$usuario->delete();
-        if ($delete) {
-            return redirect()->route('usuario.index');
-        } else {
-            return redirect()->route('usuario.show',$id)->with(['errors'=>'erro ao deletar']);
-        }
-       // return"apagando o perfil: $id";
+       
     }
 
      public function test()
