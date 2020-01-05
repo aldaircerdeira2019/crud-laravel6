@@ -105,20 +105,21 @@ class ProdutoControle extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ProdutoFormRequest $request, $id)
-    {   try {
-        $dadosform = $request->all();
-        $produto= $this->produto->find($id);
-        $update=$produto->update($dadosform); 
-        flash('atualizado com sucesso!')->success();
-        return redirect()->route('produto.index');
-    } catch (\Exception $e) {
-        if(env('APP_DEBUG')){
-            flash($e->getMessage())->warning();
+    {  
+        try {
+            $dadosform = $request->all();
+            $produto= $this->produto->find($id);
+            $update=$produto->update($dadosform); 
+            flash('atualizado com sucesso!')->success();
+            return redirect()->route('produto.index');
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG')){
+                flash($e->getMessage())->warning();
+                return redirect()->route('produto.edit');
+            }
+            flash('erro ao atualizar')->warning();
             return redirect()->route('produto.edit');
         }
-        flash('erro ao atualizar')->warning();
-        return redirect()->route('produto.edit');
-    }
         
         //return"editando o {$id}";
     }

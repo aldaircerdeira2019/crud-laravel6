@@ -139,10 +139,10 @@ class UsuarioControle extends Controller
         } catch (\Exception $e) {
             if(env('APP_DEBUG')){
                 flash($e->getMessage())->warning();
-                return redirect()->route('usuario.create');
+                return redirect()->route('usuario.edit');
             }
             flash('erro ao atualizar')->warning();
-            return redirect()->route('usuario.create');
+            return redirect()->route('usuario.edit');
         }
 
         
