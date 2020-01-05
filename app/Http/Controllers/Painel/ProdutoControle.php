@@ -50,15 +50,21 @@ class ProdutoControle extends Controller
        //dd ($request->all()); //capturar todos os dados
        // dd($request->only(['nome','preco'])); capturar selecionando
        // dd($request->except(['nome'])); exeto o campo tal
-
-        $dadosform = $request->all();//armazena os dados que vem do formulario
-
-
-        $insert =$this->produto->create($dadosform);
-        if($insert)
+        try {
+            $dadosform = $request->all();//armazena os dados que vem do formulario
+            $insert =$this->produto->create($dadosform);
+            flash('cadastrado com sucesso!')->success();
             return redirect()->route('produto.index');
-        else
+        } catch (\Exception $e) {
+            if(env('APP_DEBUG')){
+                flash($e->getMessage())->warning();
+                return redirect()->route('produto.create');
+            }
+            flash('erro ao cadastrar! verifique os dados')->warning();
             return redirect()->route('produto.create');
+        }
+       
+        
     }
 
     /**
@@ -99,17 +105,21 @@ class ProdutoControle extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ProdutoFormRequest $request, $id)
-    {
+    {   try {
         $dadosform = $request->all();
         $produto= $this->produto->find($id);
-        $update=$produto->update($dadosform);
-        if ($update) {
-            return redirect()->route('produto.index');
-        } else {
-            return redirect()->route('produto.edit',$id)->with(['errors'=>'erro ao atualizar']);
+        $update=$produto->update($dadosform); 
+        flash('atualizado com sucesso!')->success();
+        return redirect()->route('produto.index');
+    } catch (\Exception $e) {
+        if(env('APP_DEBUG')){
+            flash($e->getMessage())->warning();
+            return redirect()->route('produto.edit');
         }
+        flash('erro ao atualizar')->warning();
+        return redirect()->route('produto.edit');
+    }
         
-
         //return"editando o {$id}";
     }
 
@@ -121,15 +131,8 @@ class ProdutoControle extends Controller
      */
     public function destroy($id)
     {
-
         $produto= $this->produto->find($id);
-        $delete=$produto->delete();
-        if ($delete) {
-            return redirect()->route('produto.index');
-        } else {
-            return redirect()->route('produto.shoe',$id)->with(['errors'=>'erro ao deletar']);
-        }
-        
+        $delete=$produto->delete();     
        // return'ok';
     }
 
