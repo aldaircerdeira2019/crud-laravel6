@@ -20,7 +20,7 @@
 		@csrf
 			
 		<div class="form-group">
-			<input type="text" name="nome" placeholder="nome do produto" value="{{$produtos->nome ?? old('nome')}}">
+			<input type="text" name="nome_p" placeholder="nome do produto" value="{{$produtos->nome_p ?? old('nome_p')}}">
 		</div>
 
 		<div class="form-group">

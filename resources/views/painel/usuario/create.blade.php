@@ -22,7 +22,7 @@
 		@csrf
 		<div class="form-group">
 				<!-- a expressão {{old('')}} serve para preservar os dados no formulario-->
-			<input type="text" name="nome" placeholder="nome do vendedo" value="{{$usuarios->nome ?? old('nome')}}">
+			<input type="text" name="nome_u" placeholder="nome do vendedo" value="{{$usuarios->nome_u ?? old('nome_u')}}">
 		</div>
 
 		<div class="form-group">

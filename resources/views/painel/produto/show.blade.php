@@ -6,7 +6,7 @@
 <h1> Produtos: {{"$produtos->nome"}}</h1>
 
 <p><b>Codigo do Produto: </b>{{$produtos->id}}</p>
-<p><b>Nome do Produto: </b>{{$produtos->nome}}</p>	
+<p><b>Nome do Produto: </b>{{$produtos->nome_p}}</p>	
 <p><b>Valor do Produto: </b>{{$produtos->preco}}</p>
 <p><b>Data de Criação: </b>{{$produtos->created_at}}</p>
 <p><b>Ultima Atualização: </b>{{$produtos->updated_at}}</p>

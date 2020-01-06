@@ -8,10 +8,11 @@
 		
 		<tr class="info">
 			<th width="50 px">id</th>
-			<th>produto vendido</th>
-			<th>quantidade</th>
-			<th>vendedor</th>
-			<th>Data</th>
+			<th>Vendedor</th>
+			<th>Produto</th>
+			<th width="120px">Quantidade</th>
+			<th>Preço</th>
+			<th width="150px">Data</th>
 			<th width="160 px">Ação</th>
 		</tr>
 
@@ -19,9 +20,10 @@
 		@foreach($r_vendas as $venda)
 
 			<td>{{$venda->id}}</td>
-			<td>{{$venda->produto_vendido}}</td>
+			<td>{{$venda->nome_u}}</td>
+			<td>{{$venda->nome_p}}</td>
 			<td>{{$venda->quantidade}}</td>
-			<td>{{$venda->vendedor}}</td>
+			<td>{{$venda->preco}}</td>
 			<td>{{$venda->created_at}}</td>
 
 			<td class="td_del">

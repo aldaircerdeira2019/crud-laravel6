@@ -17,35 +17,25 @@ class VendasControle extends Controller
     {
         $this->vendas = $vendas;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $title ='Listagem dos Vendedores';
-       $r_vendas= $this->vendas-> paginate($this->pagi);
+       $r_vendas=  $this->vendas
+       ->join('usuario','vendas.vendedor', '=', 'usuario.id')
+       ->join('produto','vendas.produto_vendido', '=', 'produto.id')
+       ->select('vendas.*','usuario.nome_u','produto.nome_p','produto.preco')
+       ->paginate($this->pagi);
+
         return view('painel.vendas.index',compact('r_vendas','title'));
     }    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $title='Cadastrar Novo Vendedor';
         return view('painel.vendas.create',compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(VendasFormRequest $request)
     {
         try {
@@ -73,26 +63,18 @@ class VendasControle extends Controller
        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
-    {
-        $vendas= $this->vendas->find($id);
-        $title="id da venda {$vendas->id}";
-        return view('painel.vendas.show',compact('vendas','title'));
+    {   
+        $vendas=  $this->vendas
+       ->join('usuario','vendas.vendedor', '=', 'usuario.id')
+       ->join('produto','vendas.produto_vendido', '=', 'produto.id')
+       ->select('vendas.*','usuario.nome_u','produto.nome_p','produto.preco')
+       ->find($id);
+       $title="id da venda {$vendas->id}";
+       return view('painel.vendas.show',compact('vendas','title'));
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $vendas=$this->vendas->find($id);
@@ -101,13 +83,6 @@ class VendasControle extends Controller
        // return"editando a venda: $id";
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(VendasFormRequest $request, $id)
     {
         try {
@@ -119,26 +94,20 @@ class VendasControle extends Controller
             return redirect()->route('vendas.index');
             
         } catch (\Exception $e) {
-            if(env('APP_DEBUG'))
+            if(ENV('APP_DEBUG'))
             {
                 /* retorna o erro*/
                 flash($e->getMessage())->warning();
-                return redirect()->route('vendas.create');
+                return redirect()->route('vendas.edit',$id);
             }
             /* retorna uma mensagem de erro*/
             flash('erro ao atualizar')->warning();
-            return redirect()->route('vendas.create');
+            return redirect()->route('vendas.edit',$id);
         }
 
        // return"editando item : $id";
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {   
         try {
@@ -159,6 +128,17 @@ class VendasControle extends Controller
             return redirect()->route('vendas.index');
         }
       
+    }
+
+    public function join(){
+        $consultas =  $this->vendas
+        ->join('usuario','vendas.vendedor', '=', 'usuario.id')
+        ->join('produto','vendas.produto_vendido', '=', 'produto.id')
+        ->select('vendas.*','usuario.nome_u','produto.nome_p','produto.preco')
+        ->paginate($this->pagi);
+        
+        //dd($consultas);
+        return view('painel.vendas.teste',compact('consultas'));
     }
 
     

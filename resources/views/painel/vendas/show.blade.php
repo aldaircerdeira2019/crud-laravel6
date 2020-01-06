@@ -3,16 +3,18 @@
 
 @section('conteudo')
 
-    <h1> venda de Numero: {{"$vendas->id"}}</h1>
-
-    <p><b>numero da venda: </b>{{$vendas->id}}</p>
-    <p><b>id do Produto: </b>{{$vendas->produto_vendido}}</p>	
-    <p><b>Quantidade: </b>{{$vendas->quantidade}}</p>
-    <p><b>id do Vendedor: </b>{{$vendas->vendedor}}
-    <p><b>Data de Criação: </b>{{$vendas->created_at}}</p>
-    <p><b>Ultima Atualização: </b>{{$vendas->updated_at}}</p>
-
-
+   <h1> venda de Numero: {{"$vendas->id"}}</h1>
+   <table class="table table-bordered">
+      <tr><th>numero da venda: </th>      <td>{{$vendas->id}}</td></tr>
+      <tr><th>id do Vendedor: </th>       <td>{{$vendas->vendedor}}</td></tr>
+      <tr><th>Vendedor: </th>             <td>{{$vendas->nome_u}}</td></tr>
+      <tr><th>id do Produto: </th>        <td>{{$vendas->produto_vendido}}</td></tr>
+      <tr><th>produto: </th>              <td>{{$vendas->nome_p}}</td></tr>
+      <tr><th>Quantidade: </th>           <td>{{$vendas->quantidade}}</td></tr>
+      <tr><th>Preço: </th>                <td>{{$vendas->preco}}</td></tr>
+      <tr><th>Data de Criação: </th>      <td>{{$vendas->created_at}}</td></tr>
+      <tr><th>Ultima Atualização: </th>   <td>{{$vendas->updated_at}}</td></tr>
+   </table>
 
  <a class="btn btn-primary" href="{{route('vendas.index')}}">
     <span class="glyphicon glyphicon-chevron-left"></span>

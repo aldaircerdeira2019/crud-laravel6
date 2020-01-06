@@ -13,7 +13,7 @@
 			</div>
 			@endif
 <p><b>Codigo do Vendedor: </b>{{$usuarios->id}}</p>
-<p><b>Nome do Vendedor: </b>{{$usuarios->nome}}</p>	
+<p><b>Nome do Vendedor: </b>{{$usuarios->nome_u}}</p>	
 <p><b>Email: </b>{{$usuarios->email}}</p>
 <p><b>Cep: </b>{{$usuarios->cep}}</p>
 <p><b>rua: </b>{{$usuarios->rua}}</p>

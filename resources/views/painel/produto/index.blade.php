@@ -22,7 +22,7 @@
 		@foreach($produtos as $produto)
 
 		<td>{{$produto->id}}</td>
-		<td>{{$produto->nome}}</td>
+		<td>{{$produto->nome_p}}</td>
 		<td>{{$produto->preco}}</td>
 		<td>{{$produto->created_at}}</td>
 		<td>{{$produto->updated_at}}</td>

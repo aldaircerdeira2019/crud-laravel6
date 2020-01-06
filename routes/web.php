@@ -34,3 +34,5 @@ Route::get('/', function () {
 Route::get('/teste_cep', function(){
 	return view('painel/js/teste_cep');
 });
+
+Route::get('/join','Painel\VendasControle@join');

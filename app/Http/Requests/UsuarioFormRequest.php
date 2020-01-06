@@ -24,7 +24,7 @@ class UsuarioFormRequest extends FormRequest
     public function rules()
     {
         return [
-             'nome'=> 'required|min:3|max:60',
+             'nome_u'=> 'required|min:3|max:60',
              'senha'=>'required|min:8',
              'email'=>'required|max:255',
              'cep'=>'required',
@@ -36,9 +36,9 @@ class UsuarioFormRequest extends FormRequest
     {
          return 
             [
-                'nome.required'     =>'O campo nome é de preechimento obrigatorio',
-                'nome.min'          =>'O nome tem que ter no mínimo 3 caracteres',
-                'nome.max'          =>'O nome ultrapassa o limite de 60 caracteres',
+                'nome_u.required'     =>'O campo nome é de preechimento obrigatorio',
+                'nome_u.min'          =>'O nome tem que ter no mínimo 3 caracteres',
+                'nome_u.max'          =>'O nome ultrapassa o limite de 60 caracteres',
                 'senha.required'    =>'O campo senha é de preechimento obrigario',
                 'senha.min'         =>'A senha deve ter no mínimo 8 caracteres',
                 'email.required'    =>'O campo email é de preechimento obrigatorio',

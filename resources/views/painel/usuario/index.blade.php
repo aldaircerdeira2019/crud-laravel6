@@ -24,7 +24,7 @@
 		@foreach($usuarios as $usuario)
 
 			<td>{{$usuario->id}}</td>
-			<td>{{$usuario->nome}}</td>
+			<td>{{$usuario->nome_u}}</td>
 			<td>{{$usuario->email}}</td>
 			<td>{{$usuario->rua}}</td>
 			<td>{{$usuario->cep}}</td>
