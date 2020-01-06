@@ -3,20 +3,21 @@
 
 @section('conteudo')
 
-<h1> Produtos: {{"$produtos->nome"}}</h1>
+	<h1> Produtos: {{"$produtos->nome"}}</h1>
 
-<p><b>Codigo do Produto: </b>{{$produtos->id}}</p>
-<p><b>Nome do Produto: </b>{{$produtos->nome_p}}</p>	
-<p><b>Valor do Produto: </b>{{$produtos->preco}}</p>
-<p><b>Data de Criação: </b>{{$produtos->created_at}}</p>
-<p><b>Ultima Atualização: </b>{{$produtos->updated_at}}</p>
-
-<!-- parte comentada caso queira usar a função para deletar-->
-<!--form class="form" method="post" action="{{route('produto.destroy',$produtos->id)}}">
-	{!!method_field('delete')!!}	
-	@csrf
-	<button type="submit" class="alert alert-danger">{{"Apagar o Produto $produtos->nome"}}</button>
-</form-->
+	<table class="table table-bordered">
+		<tr><th>Codigo do Produto:</th>		<td>{{$produtos->id}}</td></tr>
+		<tr><th>Nome do Produto:</th>		<td>{{$produtos->nome_p}}</td></tr>
+		<tr><th>Valor do Produto:</th>		<td>{{$produtos->preco}}</td></tr>
+		<tr><th>Data de Criação:</th>		<td>{{$produtos->created_at}}</td></tr>
+		<tr><th>Ultima Atualização:</th>	<td>{{$produtos->updated_at}}</td></tr>
+	</table>
+	<!-- parte comentada caso queira usar a função para deletar-->
+	<!--form class="form" method="post" action="{{route('produto.destroy',$produtos->id)}}">
+		{!!method_field('delete')!!}	
+		@csrf
+		<button type="submit" class="alert alert-danger">{{"Apagar o Produto $produtos->nome"}}</button>
+	</form-->
 
 	<a class="btn btn-primary" href="{{route('produto.index')}}">
 		<span class="glyphicon glyphicon-chevron-left"></span>
