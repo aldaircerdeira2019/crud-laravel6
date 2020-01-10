@@ -31,7 +31,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Preço: </label>
     			<div class="col-sm-10">
-					<input type="number" name="preco"  value="{{$produtos->preco ?? old('preco')}}" >
+					<input type="text" name="preco"  value="{{$produtos->preco ?? old('preco')}}" >
 				</div>
 			</div>
 			<div class="form-group">

@@ -1,5 +1,15 @@
 # Crud Laravel - (Laravel/framework: V 6.2)
 
+## Apresentação do sistema
+
+![Inicio](apresentação/01.jpg)
+
+![Inicio](apresentação/02.jpg)
+
+![Inicio](apresentação/03.jpg)
+
+![Inicio](apresentação/04.jpg)
+
 ## Instalação
 
 Requisitos
@@ -20,11 +30,6 @@ Instala o composer
 $ composer install
 ```
 
-Instala o npm
-```bash
-$ npm install
-```
-
 Copia arquivo .env
 ```bash
 $ cp .env.example .env
@@ -35,30 +40,21 @@ Gera chave
 $ php artisan key:generate
 ```
 
-Cria banco de dados vazio (MySQL)
-```bash
-$ mysql -uroot -proot
-$ create database blog;
-```
+Cria um banco de dados vazio (MySQL)
 
-Configurar banco de dados no arquivo .env
+Configurar o banco de dados no arquivo .env
 ```bash
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=blog
-DB_USERNAME=root
-DB_PASSWORD=root
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
 ```
 
 Migra tabelas para o banco de dados
 ```bash
 $ php artisan migrate
-```
-
-Cria link simbólico
-```bash
-$ php artisan storage:link
 ```
 
 Roda servidor local na porta 8000

@@ -3,7 +3,7 @@
 
 @section('conteudo')
 	<section id="view_corpo">
-		<h1> Vendedor : {{"$usuarios->nome"}}</h1>
+		<h1> Vendedor : {{"$usuarios->nome_u"}}</h1>
 		<!-- Mostrar os erros de validação dos dados-->
 		@if(isset($errors)&&count($errors)>0)
 			<div class='alert alert-danger'>

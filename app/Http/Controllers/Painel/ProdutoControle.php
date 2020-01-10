@@ -76,7 +76,7 @@ class ProdutoControle extends Controller
     public function show($id)
     {
          $produtos= $this->produto->find($id);
-         $title="produto: {$produtos->nome}";
+         $title="produto: {$produtos->nome_p}";
          return view('painel.produto.show',compact('produtos','title'));
         //return"vizualizar : {$id}";
     }
@@ -91,7 +91,7 @@ class ProdutoControle extends Controller
     {       /* metodo que recupera um item pelo o id*/
             $produtos= $this->produto->find($id);
 
-            $title="Editar Produto : {$produtos->nome}";
+            $title="Editar Produto : {$produtos->nome_p}";
             return view('painel.produto.create',compact('title','produtos'));
           
         //return "editasr table {$id_produto}";

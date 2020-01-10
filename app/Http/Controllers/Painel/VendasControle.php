@@ -70,7 +70,7 @@ class VendasControle extends Controller
        ->join('produto','vendas.produto_vendido', '=', 'produto.id')
        ->select('vendas.*','usuario.nome_u','produto.nome_p','produto.preco')
        ->find($id);
-       $title="id da venda {$vendas->id}";
+       $title="id da venda {$vendas->id}"; 
        return view('painel.vendas.show',compact('vendas','title'));
 
     }

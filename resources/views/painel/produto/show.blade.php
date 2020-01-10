@@ -3,7 +3,7 @@
 
 @section('conteudo')
 	<section id="view_corpo">
-		<h1> Produtos: {{"$produtos->nome"}}</h1>
+		<h1> Produtos: {{"$produtos->nome_p"}}</h1>
 
 		<table class="table table-bordered">
 			<tr><th>Codigo do Produto:</th>		<td>{{$produtos->id}}</td></tr>

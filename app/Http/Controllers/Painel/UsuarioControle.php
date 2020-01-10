@@ -100,7 +100,7 @@ class UsuarioControle extends Controller
     public function show($id)
     {
         $usuarios= $this->usuario->find($id);
-        $title="Vendedor: {$usuarios->nome}";
+        $title="Vendedor: {$usuarios->nome_u}";
         return view('painel.usuario.show',compact('usuarios','title'));
 
        // return"visualizar para o id : $id";
@@ -116,7 +116,7 @@ class UsuarioControle extends Controller
     {
         $usuarios= $this->usuario->find($id);
 
-        $title="Editar Produto : {$usuarios->nome}";
+        $title="Editar Produto : {$usuarios->nome_u}";
         return view('painel.usuario.create',compact('title','usuarios'));
         //return"retorno id : $id";
     }
@@ -144,7 +144,6 @@ class UsuarioControle extends Controller
             flash('erro ao atualizar')->warning();
             return redirect()->route('usuario.edit',$id);
         }
-
         
 
         //return"updade do id: $id";
