@@ -2,13 +2,19 @@
 
 ## Apresentação do sistema
 
-![Inicio](apresentação/01.jpg)
+![Inicio](apresentação/01.png)
 
-![Inicio](apresentação/02.jpg)
+![Inicio](apresentação/02.png)
 
-![Inicio](apresentação/03.jpg)
+![Inicio](apresentação/03.png)
 
-![Inicio](apresentação/04.jpg)
+![Inicio](apresentação/04.png)
+
+![Inicio](apresentação/05.png)
+
+![Inicio](apresentação/06.png)
+
+![Inicio](apresentação/07.png)
 
 ## Instalação
 
